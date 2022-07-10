@@ -6,10 +6,10 @@ All the documentation can be found on the nvQuickSite website: [nvQuickSite](ht
 
 To Install RocketCDS you only need download [RocketCDS](https://github.com/Rocket-CDS/RocketCDS/releases) (github.com) and use the local instal package to select the RocketCDS install zip file.
 
-![Alt nvQuickSite](/docs/installation/nvQuickSite1.png "a nvQuickSite")
+![Alt nvQuickSite](https://rocket-cds.github.io/RocketCDS/docs/installation/nvQuickSite1.png "a nvQuickSite")
 
 
 To get the option to use a local file, open settings and select "Enavble Local Package Install"
 
-![Alt nvQuickSite](/docs/installation/nvQuickSite2.png "a nvQuickSite")
+![Alt nvQuickSite](https://rocket-cds.github.io/RocketCDS/docs/installation/nvQuickSite2.png "a nvQuickSite")
 
