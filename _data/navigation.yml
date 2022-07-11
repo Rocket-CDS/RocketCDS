@@ -1,12 +1,4 @@
 - name: Docs
-  dropdown: 
-    - name: Installation
-      link: /doc/installation/
-    - name: RocketContent
-      link: /doc/rocketcontent/
-    - name: RocketCatalog
-      link: /doc/rocketcatalog/
-    - name: RocketEcommerce
-      link: /doc/rocketecommerce/
+  link: /docs/
 - name: Plugins
   link: /plugins/
