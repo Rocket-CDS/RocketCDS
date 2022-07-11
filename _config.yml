@@ -1,3 +1,11 @@
 remote_theme: chrisrhymes/bulma-clean-theme
 show_sidebar: true
 menubar: sidemenu
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "pages"
+    values:
+      show_sidebar: true
