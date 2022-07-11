@@ -1,11 +1,16 @@
-remote_theme: chrisrhymes/bulma-clean-theme
-show_sidebar: true
-menubar: sidemenu
+# Site Settings
+lang: en
+title: Rocket CDS
+tagline: Rocket CDS
+#email: 
+description: >
+Documentation for Rocket CDS
 
-defaults:
-  -
-    scope:
-      path: ""
-      type: "pages"
-    values:
-      show_sidebar: true
+#favicon: /path/to/favicon.png
+permalink: pretty
+
+remote_theme: chrisrhymes/bulma-clean-theme
+
+show_sidebar: true
+#menubar: docs_menu
+
