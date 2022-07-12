@@ -6,7 +6,7 @@
 - label: Catalog
   items:
     - name: AutoComplete
-      link: /plugins/rocketcatalog/rcautocomplete/
+      link: /plugins/rocketcatalog/autocomplete/
 
 - label: Ecommerce
   items:
