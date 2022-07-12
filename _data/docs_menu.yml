@@ -1,7 +1,7 @@
 - label: Getting Started
   items:
     - name: Installation
-      link: /docs/getting-started/installation/
+      link: /docs/getting-started/Installation/
     - name: nvQuickSite
       link: /docs/getting-started/nvquicksite/
 
