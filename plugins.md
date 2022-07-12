@@ -5,6 +5,6 @@ menubar: plugins_menu
 show_sidebar: false
 ---
 
-## PLUGINS
+# PLUGINS
 
 testing2

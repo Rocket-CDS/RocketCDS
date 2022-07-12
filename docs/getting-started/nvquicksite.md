@@ -1,3 +1,10 @@
+---
+layout: page
+title: Docs
+menubar: docs_menu
+show_sidebar: false
+---
+
 # nvQuickSite
 
 nvQuickSite is an excellent tool for easily installing both DNN and RocketCDS.

@@ -5,6 +5,6 @@ menubar: docs_menu
 show_sidebar: false
 ---
 
-## DOCS
+# DOCS
 
 testing
