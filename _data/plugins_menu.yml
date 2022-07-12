@@ -1,0 +1,16 @@
+- label: Content
+  items:
+    - name: Introduction
+      link: /plugins/rocketcontent/rcautocomplete/
+
+- label: Catalog
+  items:
+    - name: Introduction
+      link: /plugins/rocketcatalog/introduction/
+
+- label: Ecommerce
+  items:
+    - name: Introduction
+      link: /plugins/rocketecommerce/introduction/
+
+
