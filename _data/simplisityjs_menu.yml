@@ -1,7 +1,7 @@
 - label: References
   items:
     - name: Class Events
-      link: /simplisityjs/reference/reference/
+      link: /simplisityjs/reference/classevents/
     - name: Command Attributes
       link: /simplisityjs/reference/commandattributes/
     - name: Field Data
