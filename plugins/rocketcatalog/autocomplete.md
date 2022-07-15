@@ -41,7 +41,7 @@ Click "Add" or edit an existing list.
 
 **Name:** Friendly Name
 
-**Cache:** To speed up functionality the data list is cached.  The caching can be turned off is required, but that is recommanded for only small lists.  The list is rebuild overnight by the scheduler.  (The cached data list is displayed below.)
+**Cache:** To speed up functionality the data list is cached.  The caching can be turned off if required.  The list is rebuild overnight by the scheduler.  (The cached data list is displayed below.)
 
 **IsDirty:** If any of the articles in the catalog have been changed the dirty flag is activated.  This will inform the scheduler that a rebuild of the list is required.  
 
@@ -108,9 +108,9 @@ Call the method with the HtmlOf() razor token.
 The plugin also supports handlebars helps, if you need to add the textbox or search box.
 
 ```
-    {{{textboxinputfield this "searchname"}}}
+    \{\{\{textboxinputfield this "searchname"\}\}\}
 
-    {{{searchinputtext this "searchaddress" ".triggersearch" "#searchtext" "searchtextbox.cshtml"}}}
+    \{\{\{searchinputtext this "searchaddress" ".triggersearch" "#searchtext" "searchtextbox.cshtml"\}\}\}
 ```
 
 ## TextBox and TextArea
