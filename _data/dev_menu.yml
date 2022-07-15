@@ -2,6 +2,10 @@
   items:
     - name: Introduction
       link: /dev/setup/introduction/
+- label: plugin
+  items:
+    - name: Plugin
+      link: /dev/plugin/createplugin/
 
 
 
