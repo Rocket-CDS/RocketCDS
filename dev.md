@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Docs
-menubar: docs_menu
+menubar: dev_menu
 show_sidebar: false
 ---
 
