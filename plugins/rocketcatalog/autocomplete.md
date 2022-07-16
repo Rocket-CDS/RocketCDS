@@ -41,7 +41,7 @@ Click "Add" or edit an existing list.
 
 **Name:** Friendly Name
 
-**Cache:** To speed up functionality the data list is cached.  The caching can be turned off if required.  The list is rebuild overnight by the scheduler.  (The cached data list is displayed below.)
+**Cache:** To speed up functionality the data list is cached.  The caching can be turned off is required, but that is recommanded for only small lists.  The list is rebuild overnight by the scheduler.  (The cached data list is displayed below.)
 
 **IsDirty:** If any of the articles in the catalog have been changed the dirty flag is activated.  This will inform the scheduler that a rebuild of the list is required.  
 
@@ -55,52 +55,47 @@ NOTE: The "AdminDetail.cshtml" part of the Admin AppTheme which is defined in th
 
 Once you have added the data lists and generated the lists, you can then add the auto complete textbox to a template you are using.  Both Razor and Handlebars are supported.  
 
-### Razor Template Methods
+### Adding JS to header
+The "autocomplete.js" needsto be added to the page. This can be done in the calling template, but preferably in the page header template.  
+You can use the CDN from "autocomplete.js" or you can include the locally distibuted version.  
+The "autocomplete.css" is optional.
 
-Thre are 2 methods for adding a auto complete textbox or search box to a razor template.
+**Local verison** 
+```
+<script src="/DesktopModules/DNNrocketModules/RCatalogAutocomplete/Themes/config-w3/1.0/js/autoComplete.min.js"></script>
+<link rel="stylesheet" href="/DesktopModules/DNNrocketModules/RCatalogAutocomplete/Themes/config-w3/1.0/css/autoComplete.css">
+```
+**CDN example (You should take the latest CDN is possible)**
+ ```
+ @{
+    var autocompleteJSurl = "https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"; 
+    var autocompleteCSSurl = "https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/css/autoComplete.min.css"; 
+}
+<script src="@autocompleteJSurl"></script>
+<link rel="stylesheet" href="@autocompleteCSSurl">
 
-#### Method 1 - Inherit RCatalogAutocomplete and Inject a sub-template 
-We can use the "@RenderTemplate" token to inject template a sub-template that contains the auto complete textboxes.
+ ```
+### Razor Template
+
+We can use the "@RenderPlugin()" token method to inject template a sub-template that contains the auto complete textboxes.
 
 The sub-template must be created in the AppTheme being used.  
 It must have the correct   
 
 There is an example included with the plugin. "/DesktopModules/DNNrocketModules/RCatalogAutocomplete/example_HomeSearch.cshtml"
 
-Inherits:  
-```
-@inherits RCatalogAutocomplete.Components.RCatalogAutocompleteTokens<Simplisity.SimplisityRazor>
-```
-Using:
-```
-@using RCatalogAutocomplete;
-@using RCatalogAutocomplete.Components;
-```
 You can then use the razor tokens in the template:
 ```
-@SearchInputField(portalData.PortalId, Model, "searchaddress", ".triggersearch","#searchtext","searchtextbox.cshtml")
-@SearchInputField(appTheme, Model, "searchaddress", ".triggersearch","#searchtext","searchtextbox.cshtml")
-@TextBoxInputField(portalData.PortalId, Model, "autocomplete1")
-@TextAreaInputField(portalData.PortalId, Model, "autocomplete2")
+@{
+Model.SetSetting("inputref","searchname");
+Model.SetSetting("triggerselector",".triggersearch");
+Model.SetSetting("searchtextselector","#searchtext");
+}
+@RenderPlugin("razor-rcatalogautocomplete", "searchfield", Model)
 ```
 You can do the above directly in the template or in a parent tempate you can inject the sub-template:
 ```
 @RenderTemplate("AutoComplete.cshtml", appTheme, Model, true)
-```
-
-#### Method 2 - Directly call the method n the pligin.
-
-Using:
-```
-@using RCatalogAutocomplete;
-@using RCatalogAutocomplete.Components;
-```
-Call the method with the HtmlOf() razor token.
-```
-@HtmlOf(RCautocompleteUtils.SearchInputField(portalData.PortalId, Model, "autocomplete1", ".triggersearch","#searchtext","searchtextbox.cshtml"))
-@HtmlOf(RCautocompleteUtils.SearchInputField(appTheme, Model, "autocomplete1", ".triggersearch","#searchtext","searchtextbox.cshtml"))
-@HtmlOf(RCautocompleteUtils.TextBox(portalData.PortalId, Model, "autocomplete1"))
-@HtmlOf(RCautocompleteUtils.TextArea(portalData.PortalId, Model, "autocomplete2"))
 ```
 
 ### HandleBars Template Methods
@@ -108,36 +103,49 @@ Call the method with the HtmlOf() razor token.
 The plugin also supports handlebars helps, if you need to add the textbox or search box.
 
 ```
-    \{\{\{textboxinputfield this "searchname"\}\}\}
+    {{{autocomplete-textbox this "searchname"}}}
 
-    \{\{\{searchinputtext this "searchaddress" ".triggersearch" "#searchtext" "searchtextbox.cshtml"\}\}\}
+    {{{autocomplete-textarea this "searchname"}}}
+
+    {{{autocomplete-searchfield this "searchaddress" ".triggersearch" "#searchtext"}}}
 ```
 
 ## TextBox and TextArea
 These are tokens and methods that inject a textbox with autocomplete.  There is no other functionlaity and can be used for a normal input field.  
-```
-TextBoxInputField(int portalId, SimplisityRazor model, string inputref)
-```
-**portalId** = PortalId.  
-**model** = Model from Razor Template.  
-**inputref** = The field ID and is used as the link between data lists and the field on the template.  It must be unique on the page.  The JS script to activate the autocomplete is injected into from template.    
 
 ## SearchInputField
 The search input is used to initiate a search in the catalog.  It uses the standard search field, which MUST exists on the page.  
 
 On text selection from the autocomplete list, the JS included on render moves the selected data to the search field and initiates the search, by clicking the searchbutton event.  
 
-In the example, included in the plugin, the search field and button are hidden on the page.
+In the example "/DesktopModules/DNNrocketModules/RCatalogAutocomplete/example_Search.cshtml" , included in the plugin, the search field and button are hidden on the page.
+
+## Params
+
+Cerain paramters are required for functionality.  Handlebars and Razor tokens apply these parameters differently.
+
+**model** = Model from Razor Template.
+**inputref** = The field ID and is used as the link between data lists and the field on the template. It must be unique on the page.
+**triggerselector** = The JS selector of the search button.
+**searchtextselector** = The JS selector of the search textbox. template = The template that will be called to display the textbox. This usually exists in the plugin as “searchtextbox.cshtml”, but a different template can be created. The JS script to activate the autocomplete is injected into from template.
+
+### Razor Params
+Use the Model setting to apply the settings.
+```
+@{
+Model.SetSetting("inputref", <inputref>);
+Model.SetSetting("triggerselector", <triggerselector>);
+Model.SetSetting("searchtextselector", <searchtextselector>);
+}
+```
+
+### Handlebars Params
+Use the method paramaters.
 
 ```
-SearchInputField(int portalId, SimplisityRazor model, string inputref, string triggerselector, string searchtextselector, string template)
+    {{{autocomplete-textbox this <inputref>}}}=
+    {{{autocomplete-textarea this <inputref>}}}
+    {{{autocomplete-searchfield this <inputref> <triggerselector> <searchtextselector>}}}
 ```
-**portalId** = PortalId.  
-**model** = Model from Razor Template.  
-**inputref** = The field ID and is used as the link between data lists and the field on the template.  It must be unique on the page.  
-**triggerselector** = The JS selector of the search button.  
-**searchtextselector** =  The JS selector of the search textbox.
-**template** = The template that will be called to display the textbox.  This usually exists in the plugin as "searchtextbox.cshtml", but a different template can be created.  The JS script to activate the autocomplete is injected into from template.
-
 
 
