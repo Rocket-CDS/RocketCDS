@@ -14,6 +14,8 @@
   items:
     - name: Introduction
       link: /docs/rocketcatalog/introduction/
+    - name: Searching
+      link: /docs/rocketcatalog/searching/
 
 - label: Ecommerce
   items:
