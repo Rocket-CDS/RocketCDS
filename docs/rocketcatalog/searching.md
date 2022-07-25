@@ -32,3 +32,8 @@ Search and filter will deselect the category.
 | Click Category | Clear any search and filters and list the category articles.            |
 | Click Filter   | Clear Category and list articles with that property and text search.    |
 | Text Search    | Clear Category and list articles with text search and property selected.|
+
+---
+
+![image](https://user-images.githubusercontent.com/5583141/180693444-0a4b5344-3371-48df-9c94-9e1f0a329af1.png)
+
