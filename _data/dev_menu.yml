@@ -2,6 +2,10 @@
   items:
     - name: Introduction
       link: /dev/setup/introduction/
+- label: Architechture
+  items:
+    - name: API
+      link: /dev/architechture/api/
 - label: plugin
   items:
     - name: Plugin
