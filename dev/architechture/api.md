@@ -1,4 +1,11 @@
-﻿# API reference for RocketCDS
+﻿---
+layout: page
+title: API
+menubar: dev_menu
+show_sidebar: false
+---
+
+# API reference for RocketCDS
 
 RocketCDS is an application that delivers content via web API.
 
