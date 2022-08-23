@@ -6,6 +6,12 @@
   items:
     - name: API
       link: /dev/architechture/api/
+- label: Database
+  items:
+    - name: Structure
+      link: /dev/database/structure/
+    - name: XML Index
+      link: /dev/database/xmlindex/
 - label: plugin
   items:
     - name: Plugin
