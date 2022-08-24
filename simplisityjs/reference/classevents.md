@@ -14,7 +14,7 @@ show_sidebar: false
 
 <table class="w3-table w3-bordered">
 	<tbody>
-		<tr class="w3-teal">
+		<tr class="">
 			<th>Element ID</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -33,7 +33,7 @@ show_sidebar: false
 
 <table class="w3-table w3-bordered">
 	<tbody>
-		<tr class="w3-teal">
+		<tr class="">
 			<th>Class Name</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -52,6 +52,10 @@ show_sidebar: false
 		<tr>
 			<td>simplisity_change</td>
 			<td>Apply a Simplisity change event onto an element. This is usually used for dropdownlist, so something can be populated on selection.</td>
+		</tr>		
+		<tr>
+			<td>simplisity_removegriditem</td>
+			<td>Remove item from html div list element</td>
 		</tr>
 		<tr>
 			<td>simplisity_removelistitem</td>
