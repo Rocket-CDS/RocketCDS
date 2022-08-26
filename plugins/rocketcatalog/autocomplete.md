@@ -83,16 +83,16 @@ A direct call to the rendering method can be done.
 ```
 If the "searchtextbox.cshtml" template is in the AppTheme is will be used.  Otherwise the default plugin will be used.   
 
-## RCautocompleteUtils.TextBox() and RCautocompleteUtils.TextArea()
-These are tokens and methods that inject a textbox with autocomplete.  There is no other functionlaity and they can be used for a normal input field.  
+## RCautocompleteUtils.TextBox()
+Autocomplete on a TextBox.  
+
+## RCautocompleteUtils.TextArea()
+Autocomplete on a TextArea.  
 
 ## RCautocompleteUtils.SearchInputField()
-The "search" input is used to initiate a search in the catalog.  It uses the standard search field, which MUST exists on the page.  
+A "search" input is used to initiate a search in the catalog.  It uses the standard search field, which MUST exists on the page.  
 
-On text selection from the autocomplete list, the JS included on render moves the selected data to the search field and initiates the search, by clicking the searchbutton event.  
-
-In the example "/DesktopModules/DNNrocketModules/RCatalogAutocomplete/example_Search.cshtml" , included in the plugin, the search field and button are hidden on the page.
-
+On text selection from the autocomplete list, JavaScript moves the selected data to the search field and initiates the search, by triggering the searchbutton click event.  
 
 ## Params
 
@@ -108,14 +108,17 @@ Certain paramters are required for functionality.  Handlebars and Razor tokens a
 
 The plugin also supports handlebars helps, if you need to add the textbox or search box.
 
-```
+<hr/>
+<div>
     {{{autocomplete-textbox this "searchname"}}}
-
+</div>
+<div>
     {{{autocomplete-textarea this "searchname"}}}
-
+</div>
+<div>
     {{{autocomplete-searchfield this "searchaddress" ".triggersearch" "#searchtext"}}}
-```
-
+</div>
+<hr/>
 
 ## Example Template (searchtextbox.cshtml)
 
