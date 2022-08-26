@@ -45,11 +45,11 @@ Click "Add" or edit an existing list.
 
 **IsDirty:** If any of the articles in the catalog have been changed the dirty flag is activated.  This will inform the scheduler that a rebuild of the list is required.  
 
-**Data xPath:**  The data that is required for the list is selected by xpath.  The easiest way to find the required xpath is to look on the article admin, if the designer has included the display XML button or at the "AdminDetail.cshtml" template that is being used.  You can also look at the XML in the database.  Muliple xpath field can be entered.  The delimiter can also be specified to split the test into words.  
+**Data xPath:**  The data that is required for the list is selected by xpath.  The easiest way to find the required xpath is to look on the article admin, if the designer has included the display XML button or at the "AdminDetail.cshtml" template that is being used.  You can also look at the XML in the database.  Muliple xpath field can be entered.  The delimiter can also be specified to split the text into words.  
 
 **Reset Button:**  This will recreate the data list.  (Unchecking the cache checkbox and saving will clear the data list)
 
-NOTE: The "AdminDetail.cshtml" part of the Admin AppTheme which is defined in the system configuration that is accessed vis the admin portal.  
+NOTE: The "AdminDetail.cshtml" part of the Admin AppTheme which is defined in the system configuration that is accessed via the admin portal.  
 
 ## Adding the Textbox to the Template
 
@@ -65,7 +65,7 @@ The "autocomplete.css" is optional.
 <script src="/DesktopModules/DNNrocketModules/RCatalogAutocomplete/Themes/config-w3/1.0/js/autoComplete.min.js"></script>
 <link rel="stylesheet" href="/DesktopModules/DNNrocketModules/RCatalogAutocomplete/Themes/config-w3/1.0/css/autoComplete.css">
 ```
-**CDN example (You should take the latest CDN is possible)**
+**CDN example (You should take the latest CDN if possible)**
  ```
  @{
     var autocompleteJSurl = "https://cdn.jsdelivr.net/npm/@tarekraafat/autocomplete.js@10.2.7/dist/autoComplete.min.js"; 
@@ -77,28 +77,34 @@ The "autocomplete.css" is optional.
  ```
 ### Razor Template
 
-We can use the "@RenderPlugin()" token method to inject template a sub-template that contains the auto complete textboxes.
-
-The sub-template must be created in the AppTheme being used.  
-It must have the correct   
-
-There is an example included with the plugin. "/DesktopModules/DNNrocketModules/RCatalogAutocomplete/example_HomeSearch.cshtml"
-
-You can then use the razor tokens in the template:
+A direct call to the rendering method can be done.
 ```
-@{
-Model.SetSetting("inputref","searchname");
-Model.SetSetting("triggerselector",".triggersearch");
-Model.SetSetting("searchtextselector","#searchtext");
-}
-@RenderPlugin("razor-rcatalogautocomplete", "searchfield", Model)
+@HtmlOf(RCautocompleteUtils.SearchInputField(portalData.PortalId, Model, "searchname", ".triggersearch","#searchtext","searchtextbox.cshtml"))
 ```
-You can do the above directly in the template or in a parent tempate you can inject the sub-template:
-```
-@RenderTemplate("AutoComplete.cshtml", appTheme, Model, true)
-```
+If the "searchtextbox.cshtml" template is in the AppTheme is will be used.  Otherwise the default plugin will be used.   
 
-### HandleBars Template Methods
+## RCautocompleteUtils.TextBox() and RCautocompleteUtils.TextArea()
+These are tokens and methods that inject a textbox with autocomplete.  There is no other functionlaity and they can be used for a normal input field.  
+
+## RCautocompleteUtils.SearchInputField()
+The "search" input is used to initiate a search in the catalog.  It uses the standard search field, which MUST exists on the page.  
+
+On text selection from the autocomplete list, the JS included on render moves the selected data to the search field and initiates the search, by clicking the searchbutton event.  
+
+In the example "/DesktopModules/DNNrocketModules/RCatalogAutocomplete/example_Search.cshtml" , included in the plugin, the search field and button are hidden on the page.
+
+
+## Params
+
+Certain paramters are required for functionality.  Handlebars and Razor tokens apply these parameters differently.
+
+**model** = Model from Razor Template.  
+**inputref** = The field ID and is used as the link between data lists and the field on the template.   It must be unique on the page.  
+**triggerselector** = The JS selector of the search button.  
+**searchtextselector** = The JS selector of the search textbox.  
+**template** = The template that will be called to display the textbox. This usually exists in the plugin as “searchtextbox.cshtml”, but a different template can be created. The JS script to activate the autocomplete is injected into from template.  
+
+### HandleBars Support
 
 The plugin also supports handlebars helps, if you need to add the textbox or search box.
 
@@ -110,42 +116,69 @@ The plugin also supports handlebars helps, if you need to add the textbox or sea
     {{{autocomplete-searchfield this "searchaddress" ".triggersearch" "#searchtext"}}}
 ```
 
-## TextBox and TextArea
-These are tokens and methods that inject a textbox with autocomplete.  There is no other functionlaity and can be used for a normal input field.  
 
-## SearchInputField
-The search input is used to initiate a search in the catalog.  It uses the standard search field, which MUST exists on the page.  
+## Example Template (searchtextbox.cshtml)
 
-On text selection from the autocomplete list, the JS included on render moves the selected data to the search field and initiates the search, by clicking the searchbutton event.  
-
-In the example "/DesktopModules/DNNrocketModules/RCatalogAutocomplete/example_Search.cshtml" , included in the plugin, the search field and button are hidden on the page.
-
-## Params
-
-Cerain paramters are required for functionality.  Handlebars and Razor tokens apply these parameters differently.
-
-**model** = Model from Razor Template.
-**inputref** = The field ID and is used as the link between data lists and the field on the template. It must be unique on the page.
-**triggerselector** = The JS selector of the search button.
-**searchtextselector** = The JS selector of the search textbox. template = The template that will be called to display the textbox. This usually exists in the plugin as “searchtextbox.cshtml”, but a different template can be created. The JS script to activate the autocomplete is injected into from template.
-
-### Razor Params
-Use the Model setting to apply the settings.
+### Home Search 
 ```
+@inherits RCatalogAutocomplete.Components.RCatalogAutocompleteTokens<Simplisity.SimplisityRazor>
+@using Simplisity;
+@using DNNrocketAPI.Components;
+@using RCatalogAutocomplete;
+@using RCatalogAutocomplete.Components;
+@using RocketPortal.Components;
+
 @{
-Model.SetSetting("inputref", <inputref>);
-Model.SetSetting("triggerselector", <triggerselector>);
-Model.SetSetting("searchtextselector", <searchtextselector>);
+    var sessionParams = (SessionParams)Model.SessionParamsData;
+    var portalData = (PortalLimpet)Model.GetDataObject("portaldata");
+    var appThemePlugin = (AppThemeSystemLimpet)Model.GetDataObject("appthemeplugin");
+    var appTheme = (AppThemeLimpet)Model.GetDataObject("apptheme");
+    var remoteModule = (RemoteModule)Model.GetDataObject("remotemodule");
 }
+
+@HtmlOf(RCautocompleteUtils.SearchInputField(portalData.PortalId, Model, "searchname", ".triggersearch","#searchtext","searchtextbox.cshtml"))
+
+@HtmlOf(RCautocompleteUtils.SearchInputField(portalData.PortalId, Model, "searchaddress", ".triggersearch","#searchtext","searchtextbox.cshtml"))
+
+<div class="w3-hide" style="display:none;">
+    @TextBox(new SimplisityInfo(), "genxml/textbox/searchtext", " class='input simplisity_sessionfield actionentrykey' autocomplete='off' ", sessionParams.Get("searchtext"))
+    <!-- Element to trigger simplisity call from JS event -->
+    <span class="w3-hide triggersearch" onclick="setSessionParams();"></span>
+</div>
+
+<div id="simplisity_loader" class="w3-overlay"></div>
+
+<script>
+    function setSessionParams() {
+        simplisity_setSessionField('searchtext', $('#searchtext').val());
+        $('#simplisity_loader').show();
+        window.location.href = '@(remoteModule.PageUrlList(sessionParams.CultureCode))';
+    }
+</script>
 ```
 
-### Handlebars Params
-Use the method paramaters.
+### Script Textbox Render (searchtextbox.cshtml)
+```
+@inherits RocketCatalog.Components.RocketCatalogTokens<Simplisity.SimplisityRazor>
+@using DNNrocketAPI;
+@using System
+@using System.Linq
+@using System.Xml
+@using Simplisity;
+@using DNNrocketAPI.Components;
+@using RocketPortal.Components;
+@using RCatalogAutocomplete;
+
+
+@{
+    var portalData = (PortalLimpet)Model.GetDataObject("portaldata");
+    var inputref = Model.GetSetting("inputref");
+}
+
+<div class="autoComplete_wrapper">
+    @TextBox(new SimplisityInfo(),"genxml/textbox/autocomplete" + inputref,"class='' dir='ltr' spellcheck=false autocorrect='off' autocomplete='off' autocapitalize='off' ","",false,0,"","search")
+</div>
+
+@RenderPlugin("razor-rcatalogautocomplete", "autocomplete-scriptsearch", Model)
 
 ```
-    {{{autocomplete-textbox this <inputref>}}}=
-    {{{autocomplete-textarea this <inputref>}}}
-    {{{autocomplete-searchfield this <inputref> <triggerselector> <searchtextselector>}}}
-```
-
-
