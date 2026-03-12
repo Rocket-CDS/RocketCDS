@@ -14,7 +14,7 @@ https://www.rocket-cds.org/
 
 ---
 
-## Recommended Security Configuration
+### Recommended Security Configuration (Optional)
 
 The temporary upload folder may contain sensitive files. If the upload process fails after a file has been uploaded, those files might remain in the temporary directory and could potentially be accessed publicly.
 
@@ -22,7 +22,7 @@ To reduce this risk, it is recommended to block public access to the temporary u
 
 ---
 
-### Create a Rule in the URL Rewrite Module
+#### Create a Rule in the URL Rewrite Module
 
 You can add the rule to either:
 
