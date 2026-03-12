@@ -16,9 +16,10 @@ https://www.rocket-cds.org/
 
 ### Recommended Security Configuration (Optional)
 
-The temporary upload folder may contain sensitive files. If the upload process fails after a file has been uploaded, those files might remain in the temporary directory and could potentially be accessed publicly.
+The temporary upload folder may contain sensitive files. If the upload process fails after a file has been uploaded, those files may remain in the temporary directory and could potentially be accessed publicly.  
+To reduce this risk, it is recommended to block public access to the temporary upload folder by returning a **403 Forbidden** response.  
 
-To reduce this risk, it is recommended to block public access to the temporary upload folder by returning a **403 Forbidden** response.
+*NOTE: This is not needed on v1.8.0 and above*
 
 ---
 
